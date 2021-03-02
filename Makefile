@@ -5,7 +5,7 @@ LDPARAMS = -melf_i386
 objects = header.o loader.o kernel.o
 
 %.o : %.cpp
-	g++ $(GPPPARAMS) -o $@ -c $<
+	gcc $(GCCPARAMS) -c -o $@ $<
 
 %.o : %.asm
 	as $(ASPARAMS) $*.asm -o $*.o
@@ -13,8 +13,8 @@ objects = header.o loader.o kernel.o
 kernel.bin: linker.ld $(objects)
 	ld  $(LDPARAMS) -T $< -o $@ $(objects)
 
-iso: os.bin
-	cp $< iso/boot/os.bin && \
+iso: kernel.bin
+	cp $< iso/boot/kernel.bin && \
 	grub-mkrescue /usr/lib/grub/i386-pc -o os.iso iso
 
 run:
