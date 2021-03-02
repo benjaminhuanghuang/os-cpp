@@ -1,18 +1,20 @@
-global start
-;extern kernel_main    ; in main64.asm
+.section .text
+.extern kernelMain
+.global loader
 
+loader:
+  mov $kernel_stack, %esp
+  push %eax
+  push %ebx
+  call kernelMain
 
-section .text
-bits 64
-;---------------------- entry
-start:  
-  ;mov esp, stack_top
-  mov dword [0xb8000], 0x2f4b2f4f
-
+_stop:
+  cli
   hlt
+  jmp _stop
 
 
-section .bss  ; statically allocated variables
-stack_bottm:
-  resb 4096 * 4
-stack_top:
+.section .bss
+.space 2*1024*1024   # 2M
+kernel_stack:
+

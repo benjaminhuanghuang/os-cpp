@@ -1,21 +1,19 @@
-CPPPARAMS = -m32
-NASMPARAMS = --32
+GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
+ASPARAMS = --32
 LDPARAMS = -melf_i386
 
-
-
-objects = header.o loader.o #kernel.o
+objects = header.o loader.o kernel.o
 
 %.o : %.cpp
-	g++ $*.cpp -o $*.o
+	g++ $(GPPPARAMS) -o $@ -c $<
 
 %.o : %.asm
-	nasm -f elf64 $*.asm -o $*.o
+	as $(ASPARAMS) $*.asm -o $*.o
 
-os: linker.ld $(objects)
-	ld -n -o os.bin -T $< $(objects)
+kernel.bin: linker.ld $(objects)
+	ld  $(LDPARAMS) -T $< -o $@ $(objects)
 
-install: os.bin
+iso: os.bin
 	cp $< iso/boot/os.bin && \
 	grub-mkrescue /usr/lib/grub/i386-pc -o os.iso iso
 
