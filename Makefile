@@ -11,7 +11,7 @@ objects = header.o loader.o kernel.o
 	as $(ASPARAMS) $*.asm -o $*.o
 
 kernel.bin: linker.ld $(objects)
-	ld  $(LDPARAMS) -T $< -o $@ $(objects)
+	ld  $(LDPARAMS) -T linker.ld-o $@ $(objects)
 
 iso: kernel.bin
 	cp $< iso/boot/kernel.bin && \
