@@ -31,8 +31,10 @@ mykernel.iso: mykernel.bin
 	grub-mkrescue --output=$@ iso
 	rm -rf iso
 
+run: mykernel.iso
+	qemu-system-i386 -hda mykernel.iso
 
 clean:
-	rm -rf *.bin *.o
+	rm -rf *.bin *.o iso
 
 

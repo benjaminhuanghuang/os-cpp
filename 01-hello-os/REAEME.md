@@ -23,6 +23,12 @@
   cp mykernel.bin /boot/mykernel.bin
 ```
 
+## Make image
+```
+apt-get install -y xorriso
+apt-get install -y grub-pc-bin
+apt-get install -y grub-common
+```
 
 
 
