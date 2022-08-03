@@ -28,6 +28,8 @@
 apt-get install -y xorriso
 apt-get install -y grub-pc-bin
 apt-get install -y grub-common
+
+grub-mkrescue /usr/lib/grub/i386-pc -o mykernel.iso iso
 ```
 
 
