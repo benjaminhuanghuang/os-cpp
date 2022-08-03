@@ -1,10 +1,10 @@
-OBJECTS=loader.o kernel.o
+OBJECTS = loader.o kernel.o
 
-GCCPARAMS=-m32 -fno-use-cxa-atexit -fleading-underscore -fno-exceptions -fno-builtin -nostdlib -fno-rtti -fno-pie
+GCCPARAMS = -m32 -fno-use-cxa-atexit -fleading-underscore -fno-exceptions -fno-builtin -nostdlib -fno-rtti -fno-pie
 
-ASPARAMS=--32
+ASPARAMS = --32
 
-LDPARAMS=-melf_i386 -no-pie
+LDPARAMS = -melf_i386 -no-pie
 
 
 %.o: %.cpp
