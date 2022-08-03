@@ -16,8 +16,20 @@ LDPARAMS = -melf_i386 -no-pie
 mykernel.bin: linker.ld $(OBJECTS)
 	ld $(LDPARAMS) -T linker.ld -o $@ $(OBJECTS)
 
-install: mykernel.bin
-	cp $< boot/mykernel.bin
+mykernel.iso: mykernel.bin
+	mkdir iso
+	mkdir iso/boot
+	mkdir iso/boot/grub
+	cp $< iso/boot/
+	echo 'set timeout=0' > iso/boot/grub/grub.cfg
+	echo 'set default=0' >> iso/boot/grub/grub.cfg
+	echo '' >> iso/boot/grub/grub.cfg
+	echo 'menuentry "my os" {' >> iso/boot/grub/grub.cfg
+	echo '  multiboot /boot/mykernel.bin' >> iso/boot/grub/grub.cfg
+	echo '  boot' >> iso/boot/grub/grub.cfg
+	echo '}' >> iso/boot/grub/grub.cfg
+	grub-mkrescue --output=$@ iso
+	rm -rf iso
 
 
 clean:
