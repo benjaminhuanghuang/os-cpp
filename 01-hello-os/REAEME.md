@@ -23,12 +23,17 @@
   cp mykernel.bin /boot/mykernel.bin
 ```
 
-## Make image
+## Make iso image with grub
 ```
 apt-get install -y xorriso
 apt-get install -y grub-pc-bin
 apt-get install -y grub-common
 ```
 
+
+## Boot from image
+```
+  qemu-system-i386 -cdrom mykernel.iso -boot d
+```
 
 
