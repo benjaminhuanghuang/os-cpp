@@ -28,11 +28,11 @@ mykernel.iso: mykernel.bin
 	echo '  multiboot /boot/mykernel.bin' >> iso/boot/grub/grub.cfg
 	echo '  boot' >> iso/boot/grub/grub.cfg
 	echo '}' >> iso/boot/grub/grub.cfg
-	grub-mkrescue --output=$@ iso
+	grub-mkrescue /usr/lib/grub/i386-pc -o mykernel.iso iso
 	rm -rf iso
 
 run: mykernel.iso
-	qemu-system-i386 -hda mykernel.iso
+	qemu-system-i386 -cdrom mykernel.iso -boot d
 
 clean:
 	rm -rf *.bin *.o iso
