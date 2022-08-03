@@ -1,4 +1,4 @@
-OBJECTS = loader.o kernel.o
+OBJECTS = loader.o kernel.o gdt.o
 
 GCCPARAMS = -m32 -fno-use-cxa-atexit -fleading-underscore -fno-exceptions -fno-builtin -nostdlib -fno-rtti -fno-pie
 
